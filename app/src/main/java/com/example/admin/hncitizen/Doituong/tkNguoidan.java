@@ -1,4 +1,4 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Doituong;
 
 public class tkNguoidan {
     int Id;

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.admin.hncitizen.Doituong.tkNguoidan;
 import com.example.admin.hncitizen.Dulieu.Data;
 
 import java.util.ArrayList;
@@ -55,6 +56,9 @@ for(tkNguoidan c:Listtk)
 
                 if (taikhoan.getText().toString().equals(taikhoanxacthuc)&&matkhau.getText().toString().equals(matkhauxacthuc)) {
                     Toast.makeText(LoginActivity.this, "Dang nhap thanh cong", Toast.LENGTH_SHORT).show();
+                    Intent x=new Intent(LoginActivity.this,ThongbaoActivity.class);
+                    x.putExtra("tentk",taikhoan.getText().toString());
+                    startActivity(x);
                     break;
                 }
                 else
