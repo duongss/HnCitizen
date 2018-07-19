@@ -20,7 +20,12 @@ import android.widget.TextView;
 import com.example.admin.hncitizen.Doituong.Thongbao;
 import com.example.admin.hncitizen.Dulieu.Data;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ThongbaoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,8 +61,6 @@ public class ThongbaoActivity extends AppCompatActivity
         timkiem();
         Cauhinhlist();
         gettaikhoan.setText(tentk);
-
-
         SharedPreferences sharedPreferences = getSharedPreferences("Myuser", MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putString("Taikhoan", tentk);
@@ -65,6 +68,7 @@ public class ThongbaoActivity extends AppCompatActivity
     }
 
     public void thongbao() {
+        listtb= new ArrayList<>();
         Thongbao thongbao = new Thongbao();
         thongbao.setMotaThongbao("ThongbaoTest");
         thongbao.setTomtatThongbao("TomtatTest");
@@ -77,23 +81,24 @@ public class ThongbaoActivity extends AppCompatActivity
         thongbao1.setTomtatThongbao("TomtatTest2");
         thongbao1.setNoidungThongbao("NoidungTest2");
         thongbao1.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-        thongbao1.setNgayThongbao("10/6/2018");
+        thongbao1.setNgayThongbao("29/6/2018");
         db.addtb(thongbao1);
         Thongbao thongbao2 = new Thongbao();
         thongbao2.setMotaThongbao("DTest3");
         thongbao2.setTomtatThongbao("TomtatTest3");
         thongbao2.setNoidungThongbao("NoidungTest3");
         thongbao2.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-        thongbao2.setNgayThongbao("10/4/2018");
+        thongbao2.setNgayThongbao("20/4/2018");
         db.addtb(thongbao2);
         Thongbao thongbao3 = new Thongbao();
         thongbao3.setMotaThongbao("VTest4");
         thongbao3.setTomtatThongbao("TomtatTest4");
         thongbao3.setNoidungThongbao("NoidungTest4");
         thongbao3.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-        thongbao3.setNgayThongbao("10/12/2018");
+        thongbao3.setNgayThongbao("14/12/2018");
         db.addtb(thongbao3);
         listtb = db.gettb();
+
     }
 
     private void timkiem() {
@@ -145,13 +150,24 @@ public class ThongbaoActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_sort) {
+            Collections.sort(listtb,new Sort());
+           Cauhinhlist();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+private class Sort implements Comparator<Thongbao>
+{
 
+    @Override
+    public int compare(Thongbao o1, Thongbao o2) {
+        return o1.getNgayThongbao().compareTo(o2.getNgayThongbao());
+    }
+
+
+}
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

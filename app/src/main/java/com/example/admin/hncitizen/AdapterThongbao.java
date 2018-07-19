@@ -1,6 +1,7 @@
 package com.example.admin.hncitizen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,7 +27,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
     public AdapterThongbao(LayoutInflater layoutInflater, ArrayList<Thongbao> thongbaoArrayList, Context context) {
         this.layoutInflater = layoutInflater;
         this.thongbaoArrayList = thongbaoArrayList;
-        this.timlist=thongbaoArrayList;
+        this.timlist = thongbaoArrayList;
         this.context = context;
     }
 
@@ -53,6 +54,15 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
         Picasso.with(context)
                 .load(th.getAnhThongbao())
                 .into(holder.imgAnh);
+        holder.binhluanbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BinhluanActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -62,18 +72,19 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
 
 
     class appviewHolder extends RecyclerView.ViewHolder {
-        TextView textmota, texttomtat,ngaythongbao;
+        TextView textmota, texttomtat, ngaythongbao;
         ImageView imgAnh;
         CardView cardView;
-        Button buttonthemgio;
+        Button binhluanbtn;
 
         public appviewHolder(View itemView) {
             super(itemView);
-            textmota = itemView.findViewById(R.id.textMotaThuocGioHang);
+            textmota = itemView.findViewById(R.id.textMota);
             texttomtat = itemView.findViewById(R.id.textTomtatthongbao);
             imgAnh = itemView.findViewById(R.id.anhThongbao);
+            ngaythongbao = itemView.findViewById(R.id.textngaythongbao);
             cardView = itemView.findViewById(R.id.itemX);
-            ngaythongbao=itemView.findViewById(R.id.textngaythongbao);
+            binhluanbtn = itemView.findViewById(R.id.binhluanbtn);
         }
     }
 }

@@ -2,19 +2,10 @@ package com.example.admin.hncitizen.Doituong;
 
 public class Thongbao {
     int idThongbao;
-    String motaThongbao,tomtatThongbao,noidungThongbao,anhThongbao,ngayThongbao;
+    String motaThongbao, tomtatThongbao, noidungThongbao, anhThongbao, ngayThongbao;
 
-    public Thongbao(int idThongbao, String motaThongbao, String tomtatThongbao, String noidungThongbao) {
-        this.idThongbao = idThongbao;
-        this.motaThongbao = motaThongbao;
-        this.tomtatThongbao = tomtatThongbao;
-        this.noidungThongbao = noidungThongbao;
-    }
 
-    public Thongbao(String motaThongbao, String tomtatThongbao, String noidungThongbao) {
-        this.motaThongbao = motaThongbao;
-        this.tomtatThongbao = tomtatThongbao;
-        this.noidungThongbao = noidungThongbao;
+    public Thongbao() {
     }
 
     public String getNgayThongbao() {
@@ -25,8 +16,6 @@ public class Thongbao {
         this.ngayThongbao = ngayThongbao;
     }
 
-    public Thongbao()
-{}
     public String getAnhThongbao() {
         return anhThongbao;
     }

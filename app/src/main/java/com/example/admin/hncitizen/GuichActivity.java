@@ -76,6 +76,7 @@ public class GuichActivity extends AppCompatActivity {
                 cauhoi.setNoidungCauhoi(nhapcauhoi.getText().toString());
                 cauhoi.setTaikhoanNguoidan(taikhoan);
                 cauhoi.setAnhCauhoi(imageView.toString());
+
                 db.addch(cauhoi);
                 Toast.makeText(this, "Đã gửi", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(GuichActivity.this,ThongbaoActivity.class);
@@ -96,12 +97,9 @@ public void layanh()
     });
 }
     private void capturePicture() {
-        // Kiểm tra Camera trong thiết bị
         if (getApplicationContext().getPackageManager().hasSystemFeature(
                 PackageManager.FEATURE_CAMERA)) {
-            // Mở camera mặc định
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Tiến hành gọi Capture Image intent
             startActivityForResult(intent, 0);
         } else {
             Toast.makeText(getApplication(), "Camera không được hỗ trợ", Toast.LENGTH_LONG).show();
@@ -111,8 +109,8 @@ public void layanh()
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Lấy ảnh từ intent Camera của mình về dưới dạng bitmap và hiển thị lên imageview của mình
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);
+
     }
 }

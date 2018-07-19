@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.admin.hncitizen.Doituong.Binhluan;
 import com.example.admin.hncitizen.Doituong.Cauhoi;
 import com.example.admin.hncitizen.Doituong.Thongbao;
 import com.example.admin.hncitizen.Doituong.tkNguoidan;
@@ -20,7 +21,12 @@ public class Data extends SQLiteOpenHelper {
     private static final String TABLE_NAME1 = "taikhoanNguoidan";
     private static final String TABLE_NAME2 = "Thongbao";
     private static final String TABLE_NAME3 = "Cauhoi";
+    private static final String TABLE_NAME4 = "Binhluan";
+    //Binhluan
+    private static final String KEY_IDBl = "Idbl";
+    private static final String KEY_BINHLUAN = "Binhluanchat";
     //Thongbao
+    private static final String KEY_IDtb = "Idtb";
     private static final String KEY_MOTATB = "MotaThongbao";
     private static final String KEY_TOMTATTB = "TomtatThongbao";
     private static final String KEY_NOIDUNGTB = "NoidungThongbao";
@@ -52,16 +58,20 @@ public class Data extends SQLiteOpenHelper {
                 + KEY_TAIKHOAN + " TEXT," + KEY_MATKHAU
                 + " TEXT," + KEY_DIACHI + " TEXT," + KEY_SODIENTHOAI + " TEXT," + KEY_HOTEN + " TEXT" + ")";
 
-        String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME2 + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
+        String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME2 + "(" + KEY_IDtb + " INTEGER PRIMARY KEY,"
                 + KEY_MOTATB + " TEXT," + KEY_TOMTATTB
-                + " TEXT," + KEY_NOIDUNGTB + " TEXT," + KEY_ANHTB + " TEXT," + KEY_NGAYTB+ " TEXT" + ")";
+                + " TEXT," + KEY_NOIDUNGTB + " TEXT," + KEY_ANHTB + " TEXT," + KEY_NGAYTB + " TEXT" + ")";
 
         String CREATE_TABLE3 = "CREATE TABLE " + TABLE_NAME3 + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_NOIDUNGCH + " TEXT," + KEY_TAIKHOANCH + " TEXT," + KEY_ANHCAUHOI+ " TEXT" + ")";
+                + KEY_NOIDUNGCH + " TEXT," + KEY_TAIKHOANCH + " TEXT," + KEY_ANHCAUHOI + " TEXT" + ")";
+
+        String CREATE_TABLE4 = "CREATE TABLE " + TABLE_NAME4 + "(" + KEY_IDBl + " INTEGER PRIMARY KEY,"
+                + KEY_BINHLUAN + " TEXT," + KEY_TAIKHOAN + " TEXT," + KEY_IDtb+ " TEXT" + ")";
 
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
         db.execSQL(CREATE_TABLE3);
+        db.execSQL(CREATE_TABLE4);
     }
 
     @Override
@@ -69,6 +79,7 @@ public class Data extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         onCreate(db);
     }
 
@@ -87,6 +98,7 @@ public class Data extends SQLiteOpenHelper {
         db.close();
 
     }
+
     public void addch(Cauhoi tk) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -99,6 +111,18 @@ public class Data extends SQLiteOpenHelper {
         db.close();
 
     }
+    public void addbl(Binhluan tk) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_BINHLUAN, tk.getBinhluan());
+        values.put(KEY_TAIKHOAN, tk.getTkNguoidan());
+        values.put(KEY_IDtb, tk.getIdThongbao());
+        db.insert(TABLE_NAME4, null, values);
+        db.close();
+
+    }
     public void addtb(Thongbao tk) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -108,11 +132,12 @@ public class Data extends SQLiteOpenHelper {
         values.put(KEY_TOMTATTB, tk.getTomtatThongbao());
         values.put(KEY_NOIDUNGTB, tk.getNoidungThongbao());
         values.put(KEY_ANHTB, tk.getAnhThongbao());
-        values.put(KEY_NGAYTB,tk.getNgayThongbao());
+        values.put(KEY_NGAYTB, tk.getNgayThongbao());
         db.insert(TABLE_NAME2, null, values);
         db.close();
 
     }
+
     public ArrayList<tkNguoidan> gettk() {
         ArrayList<tkNguoidan> lists = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME1;
@@ -135,6 +160,7 @@ public class Data extends SQLiteOpenHelper {
         }
         return lists;
     }
+
     public ArrayList<Thongbao> gettb() {
         ArrayList<Thongbao> lists = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME2;
@@ -148,6 +174,28 @@ public class Data extends SQLiteOpenHelper {
                 tk.setTomtatThongbao(cursor.getString(2));
                 tk.setNoidungThongbao(cursor.getString(3));
                 tk.setAnhThongbao(cursor.getString(4));
+                tk.setNgayThongbao(cursor.getString(5));
+                lists.add(tk);
+
+            }
+            while (cursor.moveToNext());
+
+        }
+        return lists;
+    }
+    //+"WHERE"+ KEY_IDtb
+    public ArrayList<Binhluan> getbl() {
+        ArrayList<Binhluan> lists = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_NAME4 ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Binhluan tk = new Binhluan();
+                tk.setIdBl(cursor.getInt(0));
+                tk.setBinhluan(cursor.getString(1));
+                tk.setTkNguoidan(cursor.getString(2));
+                tk.setIdThongbao(cursor.getInt(3));
                 lists.add(tk);
 
             }

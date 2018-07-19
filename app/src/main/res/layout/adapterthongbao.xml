@@ -40,12 +40,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textMotaThuocGioHang"
+                    android:id="@+id/textTomtatthongbao"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="mota"
+                    android:text="Nội dung"
                     android:textColor="#080808" />
             </LinearLayout>
         </LinearLayout>
@@ -59,7 +59,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -73,11 +72,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="39dp"
                         android:gravity="center"
-                        android:text="Thông Báo:"
+                        android:text="Mô tả:"
                         android:textColor="#051f7c" />
 
                     <TextView
-                        android:id="@+id/textTomtatthongbao"
+                        android:id="@+id/textMota"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center"
@@ -91,29 +90,47 @@
             </LinearLayout>
 
             <LinearLayout
+
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/textTrangthai"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="#f2190a"
-                    android:text="Chưa đọc"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_gravity="right"
-                    android:id="@+id/textngaythongbao"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="right"
+                        android:text="Ngày thông báo:"
+                        android:textColor="#080808" />
+                    <TextView
+                        android:id="@+id/textngaythongbao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="right"
+                        android:text="XXXXXX"
+                        android:textColor="#080808" />
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:text="XXXXXX"
-                    android:textColor="#080808" />
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+
             </LinearLayout>
 
+<Button
+    android:id="@+id/binhluanbtn"
+    android:text="Bình Luận"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+</Button>
         </LinearLayout>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>
