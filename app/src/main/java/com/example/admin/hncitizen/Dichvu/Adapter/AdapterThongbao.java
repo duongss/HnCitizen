@@ -1,7 +1,8 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Dichvu.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +14,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.admin.hncitizen.Dichvu.BinhluanActivity;
 import com.example.admin.hncitizen.Doituong.Thongbao;
+import com.example.admin.hncitizen.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
     LayoutInflater layoutInflater;
     ArrayList<Thongbao> thongbaoArrayList, timlist;
     Context context;
-    timkiemAdapter timkiemAdapter;
+    AdapterTimkiem timkiemAdapter;
 
     public AdapterThongbao(LayoutInflater layoutInflater, ArrayList<Thongbao> thongbaoArrayList, Context context) {
         this.layoutInflater = layoutInflater;
@@ -35,14 +38,14 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
     @Override
     public Filter getFilter() {
         if (timkiemAdapter == null) {
-            timkiemAdapter = new timkiemAdapter(this, timlist);
+            timkiemAdapter = new AdapterTimkiem(this, timlist);
         }
         return timkiemAdapter;
     }
 
     @Override
     public appviewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new appviewHolder(layoutInflater.inflate(R.layout.adapterthongbao, parent, false));
+        return new appviewHolder(layoutInflater.inflate(R.layout.itemlisttb, parent, false));
     }
 
     @Override
@@ -57,9 +60,13 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
         holder.binhluanbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Myuser", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putInt("idtb", th.getIdThongbao());
+                edit.commit();
                 Intent intent = new Intent(context, BinhluanActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+              //  intent.putExtra("idTb",th.getIdThongbao());
                 context.startActivity(intent);
             }
         });

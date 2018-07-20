@@ -1,4 +1,4 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Dichvu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.admin.hncitizen.Doituong.Cauhoi;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.R;
 
 public class GuichActivity extends AppCompatActivity {
     TextView taikhoannguoigui;

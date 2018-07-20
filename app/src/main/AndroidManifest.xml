@@ -21,8 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Dichvu.RegisterActivity" />
+        <activity android:name=".Dichvu.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,12 +30,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ThongbaoActivity"
+            android:name=".Dichvu.ThongbaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GuichActivity"
+            android:name=".Dichvu.GuichActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".BinhluanActivity"></activity>
+        <activity android:name=".Dichvu.BinhluanActivity"></activity>
     </application>
 
 </manifest>

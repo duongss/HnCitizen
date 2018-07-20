@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/frament"
     android:orientation="vertical"
-    tools:context=".ThongbaoActivity">
+    tools:context=".Dichvu.ThongbaoActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

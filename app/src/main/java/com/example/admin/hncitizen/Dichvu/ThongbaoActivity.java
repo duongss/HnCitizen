@@ -1,4 +1,4 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Dichvu;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,13 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.admin.hncitizen.Dichvu.Adapter.AdapterThongbao;
 import com.example.admin.hncitizen.Doituong.Thongbao;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 

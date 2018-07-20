@@ -10,7 +10,6 @@ import com.example.admin.hncitizen.Doituong.Binhluan;
 import com.example.admin.hncitizen.Doituong.Cauhoi;
 import com.example.admin.hncitizen.Doituong.Thongbao;
 import com.example.admin.hncitizen.Doituong.tkNguoidan;
-import com.example.admin.hncitizen.RegisterActivity;
 
 import java.util.ArrayList;
 
@@ -95,7 +94,7 @@ public class Data extends SQLiteOpenHelper {
         values.put(KEY_SODIENTHOAI, tk.getSodienthoai());
         values.put(KEY_HOTEN, tk.getHoten());
         db.insert(TABLE_NAME1, null, values);
-        db.close();
+
 
     }
 
@@ -108,7 +107,7 @@ public class Data extends SQLiteOpenHelper {
         values.put(KEY_TAIKHOANCH, tk.getTaikhoanNguoidan());
         values.put(KEY_ANHCAUHOI, tk.getAnhCauhoi());
         db.insert(TABLE_NAME3, null, values);
-        db.close();
+
 
     }
     public void addbl(Binhluan tk) {
@@ -184,9 +183,9 @@ public class Data extends SQLiteOpenHelper {
         return lists;
     }
     //+"WHERE"+ KEY_IDtb
-    public ArrayList<Binhluan> getbl() {
+    public ArrayList<Binhluan> getbl(int idtb) {
         ArrayList<Binhluan> lists = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME4 ;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME4 +" WHERE "+ KEY_IDtb+"="+idtb;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {

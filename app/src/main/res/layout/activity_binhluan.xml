@@ -3,40 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BinhluanActivity">
+    android:layout_height="match_parent"
+    tools:context=".Dichvu.BinhluanActivity">
 
-    <ListView
-        android:id="@+id/listbinhluan"
+    <TextView
+        android:textColor="#3b914e"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:text="Bình Luận"
+        android:textSize="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
-
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="380dp">
+        <ListView
+            android:id="@+id/listviewbl"
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="bottom">
+        <EditText
+            android:id="@+id/textbl"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="4" />
 
-            <EditText
-                android:id="@+id/textbl"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="4" />
-
-            <ImageButton
-                android:src="@drawable/sendch"
-                android:id="@+id/dangbinhluan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-
+        <ImageView
+            android:src="@drawable/sendch"
+            android:id="@+id/dangbinhluan"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
     </LinearLayout>
+
 </LinearLayout>
+
+

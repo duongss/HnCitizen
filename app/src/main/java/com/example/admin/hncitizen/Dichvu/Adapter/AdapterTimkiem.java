@@ -1,4 +1,4 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Dichvu.Adapter;
 
 import android.widget.Filter;
 
@@ -6,11 +6,11 @@ import com.example.admin.hncitizen.Doituong.Thongbao;
 
 import java.util.ArrayList;
 
-public class timkiemAdapter extends Filter {
+public class AdapterTimkiem extends Filter {
     AdapterThongbao adapterThongbao;
     ArrayList<Thongbao>listthongbao;
 
-    public timkiemAdapter(AdapterThongbao adapterThongbao, ArrayList<Thongbao> listthongbao) {
+    public AdapterTimkiem(AdapterThongbao adapterThongbao, ArrayList<Thongbao> listthongbao) {
         this.adapterThongbao = adapterThongbao;
         this.listthongbao = listthongbao;
     }

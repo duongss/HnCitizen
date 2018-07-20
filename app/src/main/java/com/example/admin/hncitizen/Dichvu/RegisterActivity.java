@@ -1,4 +1,4 @@
-package com.example.admin.hncitizen;
+package com.example.admin.hncitizen.Dichvu;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.admin.hncitizen.Doituong.tkNguoidan;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.R;
 
 import java.util.ArrayList;
 
