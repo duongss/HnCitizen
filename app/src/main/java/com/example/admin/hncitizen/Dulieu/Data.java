@@ -31,10 +31,10 @@ public class Data extends SQLiteOpenHelper {
     private static final String KEY_NOIDUNGTB = "NoidungThongbao";
     private static final String KEY_ANHTB = "AnhThongbao";
     private static final String KEY_NGAYTB = "NgayThongbao";
+    private static final String KEY_TRANGTHAITB = "TrangthaiThongbao";
     //Cauhoi
     private static final String KEY_NOIDUNGCH = "NoidungCauhoi";
     private static final String KEY_TAIKHOANCH = "TaikhoanCauhoi";
-    private static final String KEY_NGAYGUICAUHOI = "NgayguiCauhoi";
     private static final String KEY_ANHCAUHOI = "AnhCauhoi";
     //tkNguoidan
     private static final String KEY_ID = "Id";
@@ -59,13 +59,13 @@ public class Data extends SQLiteOpenHelper {
 
         String CREATE_TABLE2 = "CREATE TABLE " + TABLE_NAME2 + "(" + KEY_IDtb + " INTEGER PRIMARY KEY,"
                 + KEY_MOTATB + " TEXT," + KEY_TOMTATTB
-                + " TEXT," + KEY_NOIDUNGTB + " TEXT," + KEY_ANHTB + " TEXT," + KEY_NGAYTB + " TEXT" + ")";
+                + " TEXT," + KEY_NOIDUNGTB + " TEXT," + KEY_ANHTB + " TEXT," + KEY_NGAYTB + " TEXT," + KEY_TRANGTHAITB + " TEXT" + ")";
 
         String CREATE_TABLE3 = "CREATE TABLE " + TABLE_NAME3 + "(" + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NOIDUNGCH + " TEXT," + KEY_TAIKHOANCH + " TEXT," + KEY_ANHCAUHOI + " TEXT" + ")";
 
         String CREATE_TABLE4 = "CREATE TABLE " + TABLE_NAME4 + "(" + KEY_IDBl + " INTEGER PRIMARY KEY,"
-                + KEY_BINHLUAN + " TEXT," + KEY_TAIKHOAN + " TEXT," + KEY_IDtb+ " TEXT" + ")";
+                + KEY_BINHLUAN + " TEXT," + KEY_TAIKHOAN + " TEXT," + KEY_IDtb + " TEXT" + ")";
 
         db.execSQL(CREATE_TABLE1);
         db.execSQL(CREATE_TABLE2);
@@ -110,6 +110,7 @@ public class Data extends SQLiteOpenHelper {
 
 
     }
+
     public void addbl(Binhluan tk) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -122,6 +123,7 @@ public class Data extends SQLiteOpenHelper {
         db.close();
 
     }
+
     public void addtb(Thongbao tk) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -132,6 +134,7 @@ public class Data extends SQLiteOpenHelper {
         values.put(KEY_NOIDUNGTB, tk.getNoidungThongbao());
         values.put(KEY_ANHTB, tk.getAnhThongbao());
         values.put(KEY_NGAYTB, tk.getNgayThongbao());
+        values.put(KEY_TRANGTHAITB, tk.getTrangthai());
         db.insert(TABLE_NAME2, null, values);
         db.close();
 
@@ -174,6 +177,7 @@ public class Data extends SQLiteOpenHelper {
                 tk.setNoidungThongbao(cursor.getString(3));
                 tk.setAnhThongbao(cursor.getString(4));
                 tk.setNgayThongbao(cursor.getString(5));
+                tk.setTrangthai(cursor.getInt(6));
                 lists.add(tk);
 
             }
@@ -182,10 +186,11 @@ public class Data extends SQLiteOpenHelper {
         }
         return lists;
     }
+
     //+"WHERE"+ KEY_IDtb
     public ArrayList<Binhluan> getbl(int idtb) {
         ArrayList<Binhluan> lists = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME4 +" WHERE "+ KEY_IDtb+"="+idtb;
+        String selectQuery = "SELECT * FROM " + TABLE_NAME4 + " WHERE " + KEY_IDtb + "=" + idtb;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -202,5 +207,12 @@ public class Data extends SQLiteOpenHelper {
 
         }
         return lists;
+    }
+
+    public int updatetb(Thongbao thongbao) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_TRANGTHAITB, thongbao.getTrangthai());
+        return db.update(TABLE_NAME2, values, KEY_IDtb + " =?", new String[]{String.valueOf(thongbao.getIdThongbao())});
     }
 }

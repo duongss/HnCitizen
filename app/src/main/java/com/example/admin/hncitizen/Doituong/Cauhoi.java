@@ -10,6 +10,13 @@ public class Cauhoi {
     }
 public Cauhoi()
 {}
+
+    public Cauhoi(String noidungCauhoi, String taikhoanNguoidan, String anhCauhoi) {
+        this.noidungCauhoi = noidungCauhoi;
+        this.taikhoanNguoidan = taikhoanNguoidan;
+        this.anhCauhoi = anhCauhoi;
+    }
+
     public String getAnhCauhoi() {
         return anhCauhoi;
     }

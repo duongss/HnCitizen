@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -18,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -48,6 +50,8 @@ public class ThongbaoActivity extends AppCompatActivity
     Data db;
     String url = "http://192.168.0.102/thongbao.php";
     String TAG = Thongbao.class.getSimpleName();
+    private Handler mHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +73,7 @@ public class ThongbaoActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.listRethongbao);
         searchView = findViewById(R.id.searchviews);
         String tentk = getIntent().getStringExtra("tentk");
-        thongbao();
+        Addthongbao();
         timkiem();
         Cauhinhlist();
         gettaikhoan.setText(tentk);
@@ -78,7 +82,6 @@ public class ThongbaoActivity extends AppCompatActivity
         edit.putString("Taikhoan", tentk);
         edit.commit();
     }
-
     //    public void thongbao() {
 //        listtb= new ArrayList<>();
 //        Thongbao thongbao = new Thongbao();
@@ -112,7 +115,7 @@ public class ThongbaoActivity extends AppCompatActivity
 //        listtb = db.gettb();
 //
 //    }
-    public void thongbao() {
+    public void Addthongbao() {
         listtb=new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -128,6 +131,7 @@ public class ThongbaoActivity extends AppCompatActivity
                                 thongbao.setNoidungThongbao(item.getString("noidungthongbao"));
                                 thongbao.setAnhThongbao(item.getString("anhthongbao"));
                                 thongbao.setNgayThongbao(item.getString("ngaythongbao"));
+                                thongbao.setTrangthai(item.getInt("trangthai"));
                                 db.addtb(thongbao);
                                 listtb = db.gettb();
                                 Cauhinhlist();
@@ -210,7 +214,7 @@ public class ThongbaoActivity extends AppCompatActivity
 
         @Override
         public int compare(Thongbao o1, Thongbao o2) {
-            return o1.getNgayThongbao().compareTo(o2.getNgayThongbao());
+            return o2.getNgayThongbao().compareTo(o1.getNgayThongbao());
         }
 
 

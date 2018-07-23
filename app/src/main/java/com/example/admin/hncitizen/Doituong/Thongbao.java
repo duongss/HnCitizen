@@ -1,11 +1,19 @@
 package com.example.admin.hncitizen.Doituong;
 
 public class Thongbao {
-    int idThongbao;
+    int idThongbao,trangthai;
     String motaThongbao, tomtatThongbao, noidungThongbao, anhThongbao, ngayThongbao;
 
 
     public Thongbao() {
+    }
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
     }
 
     public String getNgayThongbao() {

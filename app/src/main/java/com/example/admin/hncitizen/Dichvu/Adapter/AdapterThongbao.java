@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.admin.hncitizen.Dichvu.BinhluanActivity;
 import com.example.admin.hncitizen.Doituong.Thongbao;
+import com.example.admin.hncitizen.Dulieu.Data;
 import com.example.admin.hncitizen.R;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +27,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
     ArrayList<Thongbao> thongbaoArrayList, timlist;
     Context context;
     AdapterTimkiem timkiemAdapter;
+    Data db;
 
     public AdapterThongbao(LayoutInflater layoutInflater, ArrayList<Thongbao> thongbaoArrayList, Context context) {
         this.layoutInflater = layoutInflater;
@@ -49,11 +51,16 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
     }
 
     @Override
-    public void onBindViewHolder(appviewHolder holder, int position) {
+    public void onBindViewHolder(final appviewHolder holder, int position) {
         final Thongbao th = thongbaoArrayList.get(position);
         holder.textmota.setText(th.getMotaThongbao());
         holder.texttomtat.setText(th.getTomtatThongbao());
         holder.ngaythongbao.setText(th.getNgayThongbao());
+        if (th.getTrangthai() == 0) {
+            holder.imgTrangthai.setVisibility(View.INVISIBLE);
+        } else if (th.getTrangthai() == 1) {
+            holder.imgTrangthai.setVisibility(View.VISIBLE);
+        }
         Picasso.with(context)
                 .load(th.getAnhThongbao())
                 .into(holder.imgAnh);
@@ -62,12 +69,28 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = context.getSharedPreferences("Myuser", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putInt("idtrangthai", 1);
                 edit.putInt("idtb", th.getIdThongbao());
+                edit.putString("noidungtb",th.getNoidungThongbao());
                 edit.commit();
                 Intent intent = new Intent(context, BinhluanActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              //  intent.putExtra("idTb",th.getIdThongbao());
                 context.startActivity(intent);
+            }
+        });
+        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Myuser", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putInt("idtrangthai", 1);
+                edit.putInt("idtb", th.getIdThongbao());
+                edit.putString("noidungtb",th.getNoidungThongbao());
+                edit.commit();
+                Intent intent = new Intent(context, BinhluanActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                return false;
             }
         });
     }
@@ -79,13 +102,14 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
 
 
     class appviewHolder extends RecyclerView.ViewHolder {
-        TextView textmota, texttomtat, ngaythongbao;
-        ImageView imgAnh;
+        TextView textmota, texttomtat, ngaythongbao,noidungtb;
+        ImageView imgAnh, imgTrangthai;
         CardView cardView;
         Button binhluanbtn;
 
         public appviewHolder(View itemView) {
             super(itemView);
+            imgTrangthai = itemView.findViewById(R.id.trangthaiimg);
             textmota = itemView.findViewById(R.id.textMota);
             texttomtat = itemView.findViewById(R.id.textTomtatthongbao);
             imgAnh = itemView.findViewById(R.id.anhThongbao);
