@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -31,11 +32,16 @@ import com.android.volley.toolbox.Volley;
 import com.example.admin.hncitizen.Dichvu.Adapter.AdapterThongbao;
 import com.example.admin.hncitizen.Doituong.Thongbao;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.Ketnoicsdl.KetnoiData;
 import com.example.admin.hncitizen.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,6 +57,8 @@ public class ThongbaoActivity extends AppCompatActivity
     String url = "http://192.168.0.102/thongbao.php";
     String TAG = Thongbao.class.getSimpleName();
     private Handler mHandler;
+    Connection con;
+    KetnoiData kc = new KetnoiData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,7 @@ public class ThongbaoActivity extends AppCompatActivity
         searchView = findViewById(R.id.searchviews);
         String tentk = getIntent().getStringExtra("tentk");
         Addthongbao();
+
         timkiem();
         Cauhinhlist();
         gettaikhoan.setText(tentk);
@@ -82,41 +91,9 @@ public class ThongbaoActivity extends AppCompatActivity
         edit.putString("Taikhoan", tentk);
         edit.commit();
     }
-    //    public void thongbao() {
-//        listtb= new ArrayList<>();
-//        Thongbao thongbao = new Thongbao();
-//        thongbao.setMotaThongbao("ThongbaoTest");
-//        thongbao.setTomtatThongbao("TomtatTest");
-//        thongbao.setNoidungThongbao("NoidungTest");
-//        thongbao.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-//        thongbao.setNgayThongbao("10/2/2018");
-//        db.addtb(thongbao);
-//        Thongbao thongbao1 = new Thongbao();
-//        thongbao1.setMotaThongbao("XTest2");
-//        thongbao1.setTomtatThongbao("TomtatTest2");
-//        thongbao1.setNoidungThongbao("NoidungTest2");
-//        thongbao1.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-//        thongbao1.setNgayThongbao("29/6/2018");
-//        db.addtb(thongbao1);
-//        Thongbao thongbao2 = new Thongbao();
-//        thongbao2.setMotaThongbao("DTest3");
-//        thongbao2.setTomtatThongbao("TomtatTest3");
-//        thongbao2.setNoidungThongbao("NoidungTest3");
-//        thongbao2.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-//        thongbao2.setNgayThongbao("20/4/2018");
-//        db.addtb(thongbao2);
-//        Thongbao thongbao3 = new Thongbao();
-//        thongbao3.setMotaThongbao("VTest4");
-//        thongbao3.setTomtatThongbao("TomtatTest4");
-//        thongbao3.setNoidungThongbao("NoidungTest4");
-//        thongbao3.setAnhThongbao("http://caithuoclavn.com/upload/images/thuoc-cai-thuoc-la-nhanh.jpg");
-//        thongbao3.setNgayThongbao("14/12/2018");
-//        db.addtb(thongbao3);
-//        listtb = db.gettb();
-//
-//    }
+
     public void Addthongbao() {
-        listtb=new ArrayList<>();
+        listtb = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -132,9 +109,16 @@ public class ThongbaoActivity extends AppCompatActivity
                                 thongbao.setAnhThongbao(item.getString("anhthongbao"));
                                 thongbao.setNgayThongbao(item.getString("ngaythongbao"));
                                 thongbao.setTrangthai(item.getInt("trangthai"));
-                                db.addtb(thongbao);
-                                listtb = db.gettb();
-                                Cauhinhlist();
+                                //                             db.addtb(thongbao);
+//                                 listtb = db.gettb();
+//                                Cauhinhlist();
+//                                listtb.add(thongbao);
+
+                                hienthithongbao();
+                                if (listtb.size() < 8) {
+                                    themthongbao(thongbao);
+
+                                }
                             }
                             adapterThongbao.notifyDataSetChanged();
                         } catch (Exception ex) {
@@ -151,6 +135,69 @@ public class ThongbaoActivity extends AppCompatActivity
         RequestQueue requestQueue = Volley.newRequestQueue(ThongbaoActivity.this);
         requestQueue.add(request);
     }
+
+    protected void themthongbao(final Thongbao tb) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                con = kc.ketnoi();
+                String sql = "Insert into thongbao (`trangthai`, `motaThongbao`, `tomtatThongbao`, `anhThongbao`, `ngayThongbao`, `noidungThongbao`) VALUES (?,?,?,?,?,?) ";
+
+                try {
+                    PreparedStatement stm = con.prepareStatement(sql);
+                    stm.setInt(1, tb.getTrangthai());
+                    stm.setString(2, tb.getMotaThongbao());
+                    stm.setString(3, tb.getTomtatThongbao());
+                    stm.setString(4, tb.getAnhThongbao());
+                    stm.setString(5, tb.getNgayThongbao());
+                    stm.setString(6, tb.getNoidungThongbao());
+
+                    stm.executeUpdate();
+                    mIncomingHandler.sendEmptyMessage(0);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    protected void hienthithongbao() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                con = kc.ketnoi();
+                listtb = new ArrayList<>();
+                try {
+
+                    String sql;
+                    sql = "SELECT * FROM thongbao";
+                    PreparedStatement prest = con.prepareStatement(sql);
+                    ResultSet rs = prest.executeQuery();
+                    while (rs.next()) {
+                        Thongbao tb = new Thongbao();
+                        tb.setTrangthai(rs.getInt("trangthai"));
+                        tb.setMotaThongbao(rs.getString("motaThongbao"));
+                        tb.setTomtatThongbao(rs.getString("tomtatThongbao"));
+                        tb.setAnhThongbao(rs.getString("anhThongbao"));
+                        tb.setNgayThongbao(rs.getString("ngayThongbao"));
+                        tb.setNoidungThongbao(rs.getString("noidungThongbao"));
+                        listtb.add(tb);
+                        mIncomingHandler.sendEmptyMessage(0);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    Handler mIncomingHandler = new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+            Cauhinhlist();
+            return true;
+        }
+    });
 
     private void timkiem() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

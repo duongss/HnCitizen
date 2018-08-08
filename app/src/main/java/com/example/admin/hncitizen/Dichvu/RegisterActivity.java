@@ -1,6 +1,8 @@
 package com.example.admin.hncitizen.Dichvu;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +12,12 @@ import android.widget.Toast;
 
 import com.example.admin.hncitizen.Doituong.tkNguoidan;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.Ketnoicsdl.KetnoiData;
 import com.example.admin.hncitizen.R;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -50,12 +56,46 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
 
                     tkNguoidan tk = new tkNguoidan(taikhoan.getText().toString(), matkhau.getText().toString(), diachi.getText().toString(), sodienthoai.getText().toString(), hoten.getText().toString());
-                    db = new Data(RegisterActivity.this);
-                    db.addS(tk);
+                 //   db = new Data(RegisterActivity.this);
+                 //   db.addS(tk);
+                    themtk(tk);
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }
         });
     }
+    protected void themtk(final tkNguoidan tkNguoidan) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Connection con;
+                KetnoiData kc = new KetnoiData();
+                con = kc.ketnoi();
+                String sql = "Insert into taikhoankh (`taikhoan`, `matkhau`, `sodienthoai`, `hoten`, `diachi`) VALUES (?,?,?,?,?) ";
+
+                try {
+                    PreparedStatement stm = con.prepareStatement(sql);
+                    stm.setString(1, tkNguoidan.getTaikhoan());
+                    stm.setString(2, tkNguoidan.getMatkhau());
+                    stm.setString(3, tkNguoidan.getSodienthoai());
+                    stm.setString(4, tkNguoidan.getHoten());
+                    stm.setString(5, tkNguoidan.getDiachi());
+
+                    stm.executeUpdate();
+                    mIncomingHandler.sendEmptyMessage(0);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+
+    Handler mIncomingHandler = new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+
+            return true;
+        }
+    });
 }

@@ -1,6 +1,8 @@
 package com.example.admin.hncitizen.Dichvu;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +12,12 @@ import android.widget.Toast;
 
 import com.example.admin.hncitizen.Doituong.tkNguoidan;
 import com.example.admin.hncitizen.Dulieu.Data;
+import com.example.admin.hncitizen.Ketnoicsdl.KetnoiData;
 import com.example.admin.hncitizen.R;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,12 +26,14 @@ public class LoginActivity extends AppCompatActivity {
     EditText taikhoan, matkhau;
     String taikhoanxacthuc, matkhauxacthuc;
     Data db;
-
+    Connection con;
+    KetnoiData kc = new KetnoiData();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         db = new Data(this);
+        xacthucTk();
         Dangnhap();
     }
 
@@ -45,11 +53,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Listtk = db.gettk();
                 for (tkNguoidan c : Listtk) {
                     taikhoanxacthuc = c.getTaikhoan();
                     matkhauxacthuc = c.getMatkhau();
-                    if (taikhoan.getText().toString().equals(taikhoanxacthuc.toString())&&matkhau.getText().toString().equals(matkhauxacthuc.toString())) {
+                    if (taikhoan.getText().toString().equals(taikhoanxacthuc)&&matkhau.getText().toString().equals(matkhauxacthuc)) {
                         Toast.makeText(LoginActivity.this, "Dang nhap thanh cong", Toast.LENGTH_SHORT).show();
                         Intent x = new Intent(LoginActivity.this, ThongbaoActivity.class);
                         x.putExtra("tentk", taikhoan.getText().toString());
@@ -60,9 +67,41 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
 
-//finish 15/7
-
             }
         });
     }
+    protected void xacthucTk()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                con = kc.ketnoi();
+                Listtk = new ArrayList<>();
+                try {
+                    String sql;
+                    sql = "SELECT * FROM taikhoankh";
+                    PreparedStatement prest = con.prepareStatement(sql);
+                    ResultSet rs = prest.executeQuery();
+                    while (rs.next()) {
+                        tkNguoidan tk =new tkNguoidan();
+                        tk.setTaikhoan(rs.getString("taikhoan"));
+                        tk.setMatkhau(rs.getString("matkhau"));
+                        tk.setSodienthoai(rs.getString("sodienthoai"));
+                        tk.setHoten(rs.getString("hoten"));
+                        tk.setDiachi(rs.getString("diachi"));
+                        Listtk.add(tk);
+                        mIncomingHandler.sendEmptyMessage(0);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    Handler mIncomingHandler = new Handler(new Handler.Callback() {
+        public boolean handleMessage(Message msg) {
+
+            return true;
+        }
+    });
 }
