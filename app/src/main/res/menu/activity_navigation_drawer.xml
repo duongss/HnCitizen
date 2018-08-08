@@ -9,11 +9,19 @@
         <menu>
             <item
                 android:id="@+id/nav_Cauhoi"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_send"
                 android:title="Gửi câu hỏi" />
             <item
+                android:id="@+id/nav_lichsuch"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="Câu hỏi đã gửi" />
+            <item
+                android:id="@+id/nav_chiasevitri"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Chia sẻ vị trí" />
+            <item
                 android:id="@+id/nav_Dangxuat"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_action_out"
                 android:title="Đăng xuất" />
         </menu>
     </item>

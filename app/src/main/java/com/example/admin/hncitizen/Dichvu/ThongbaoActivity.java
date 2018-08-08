@@ -280,6 +280,11 @@ public class ThongbaoActivity extends AppCompatActivity
         } else if (id == R.id.nav_Dangxuat) {
             Intent intent = new Intent(ThongbaoActivity.this, LoginActivity.class);
             startActivity(intent);
+        }else if (id == R.id.nav_lichsuch) {
+            Intent intent = new Intent(ThongbaoActivity.this, LichsuChActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_chiasevitri) {
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

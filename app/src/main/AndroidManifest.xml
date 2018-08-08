@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -34,11 +34,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Dichvu.GuichActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Dichvu.BinhluanActivity"></activity>
-        <activity android:name=".TestKetnoiCSDL">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Dichvu.BinhluanActivity" />
+        <activity android:name=".TestKetnoiCSDL"></activity>
+        <activity android:name=".Dichvu.LichsuChActivity"></activity>
     </application>
 
 </manifest>
