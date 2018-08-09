@@ -59,7 +59,6 @@ public class GuichActivity extends AppCompatActivity {
     Connection con;
     KetnoiData kc = new KetnoiData();
     String taikhoan;
-    TextClock textClock;
     String h,date, url = "http://192.168.0.102/guicauhoi.php";
     public static final String TAG = GuichActivity.class.getSimpleName();
 
@@ -78,9 +77,9 @@ public class GuichActivity extends AppCompatActivity {
         time = findViewById(R.id.textclock);
 
         Date today = Calendar.getInstance().getTime();//getting date
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy  hh:mm:ss");
         date = formatter.format(today);
-        time.setText(date);
+        time.setText("Ngày: "+date);
         h = String.valueOf(time);
         final SharedPreferences sharedPreferences = getSharedPreferences("Myuser", Context.MODE_PRIVATE);
         taikhoan = sharedPreferences.getString("Taikhoan", "");
@@ -110,6 +109,7 @@ public class GuichActivity extends AppCompatActivity {
                 guiCauhoi(cauhoi);
                 Toast.makeText(this, "Đã gửi", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(GuichActivity.this, ThongbaoActivity.class);
+                intent.putExtra("tentk",taikhoan);
                 startActivity(intent);
                 return true;
 

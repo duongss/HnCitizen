@@ -119,6 +119,10 @@ public class ThongbaoActivity extends AppCompatActivity
                                     themthongbao(thongbao);
 
                                 }
+                                else
+                                {
+                                    Cauhinhlist();
+                                }
                             }
                             adapterThongbao.notifyDataSetChanged();
                         } catch (Exception ex) {
