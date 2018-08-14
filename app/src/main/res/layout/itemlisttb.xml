@@ -10,9 +10,9 @@
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
-    app:cardBackgroundColor="#7f9ace"
+    app:cardBackgroundColor="#98b0de"
     app:cardCornerRadius="30dp"
-    app:cardElevation="5dp"
+    app:cardElevation="4dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
@@ -30,8 +30,7 @@
                 android:id="@+id/anhThongbao"
                 android:layout_width="256px"
                 android:layout_height="180px"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp" />
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,7 +129,7 @@
                         android:id="@+id/trangthaiimg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/daxem" />
+                        android:src="@drawable/daxem2" />
 
                 </LinearLayout>
 
@@ -140,8 +139,7 @@
                 android:id="@+id/binhluanbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_margin="2dp"
                 android:background="@drawable/shapebtn"
                 android:shadowRadius="5"
                 android:text="Bình Luận">

@@ -21,6 +21,8 @@ import com.example.admin.hncitizen.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appviewHolder> implements Filterable {
     LayoutInflater layoutInflater;
@@ -61,6 +63,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
         } else if (th.getTrangthai() == 1) {
             holder.imgTrangthai.setVisibility(View.VISIBLE);
         }
+
         Picasso.with(context)
                 .load(th.getAnhThongbao())
                 .into(holder.imgAnh);
@@ -71,8 +74,8 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
                 SharedPreferences.Editor edit = sharedPreferences.edit();
                 edit.putInt("idtrangthai", 1);
                 edit.putInt("idtb", th.getIdThongbao());
-                edit.putString("noidungtb",th.getNoidungThongbao());
-                edit.commit();
+                edit.putString("noidungtb", th.getNoidungThongbao());
+                edit.apply();
                 Intent intent = new Intent(context, BinhluanActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -85,7 +88,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
                 SharedPreferences.Editor edit = sharedPreferences.edit();
                 edit.putInt("idtrangthai", 1);
                 edit.putInt("idtb", th.getIdThongbao());
-                edit.putString("noidungtb",th.getNoidungThongbao());
+                edit.putString("noidungtb", th.getNoidungThongbao());
                 edit.commit();
                 Intent intent = new Intent(context, BinhluanActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -95,6 +98,16 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
         });
     }
 
+    private class Sort implements Comparator<Thongbao> {
+
+        @Override
+        public int compare(Thongbao o1, Thongbao o2) {
+            return o2.getNgayThongbao().compareTo(o1.getNgayThongbao());
+        }
+
+
+    }
+
     @Override
     public int getItemCount() {
         return thongbaoArrayList.size();
@@ -102,7 +115,7 @@ public class AdapterThongbao extends RecyclerView.Adapter<AdapterThongbao.appvie
 
 
     class appviewHolder extends RecyclerView.ViewHolder {
-        TextView textmota, texttomtat, ngaythongbao,noidungtb;
+        TextView textmota, texttomtat, ngaythongbao, noidungtb;
         ImageView imgAnh, imgTrangthai;
         CardView cardView;
         Button binhluanbtn;

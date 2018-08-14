@@ -8,6 +8,10 @@
     <item android:title="Chức năng cư dân">
         <menu>
             <item
+                android:id="@+id/nav_thongtinkh"
+                android:icon="@drawable/ttkg"
+                android:title="Thông tin người dùng" />
+            <item
                 android:id="@+id/nav_Cauhoi"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Gửi câu hỏi" />

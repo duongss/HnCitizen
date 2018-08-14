@@ -36,8 +36,9 @@
             android:name=".Dichvu.GuichActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Dichvu.BinhluanActivity" />
-        <activity android:name=".TestKetnoiCSDL"></activity>
-        <activity android:name=".Dichvu.LichsuChActivity"></activity>
+        <activity android:name=".TestKetnoiCSDL" />
+        <activity android:name=".Dichvu.LichsuChActivity" />
+        <activity android:name=".Dichvu.NguoidungActivity"></activity>
     </application>
 
 </manifest>

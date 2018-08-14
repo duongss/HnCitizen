@@ -10,13 +10,17 @@ import android.widget.TextView;
 import com.example.admin.hncitizen.Doituong.Binhluan;
 import com.example.admin.hncitizen.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AdapterBinhluan extends BaseAdapter {
     LayoutInflater layoutInflater;
     ArrayList<Binhluan> binhluansArrayList;
     Context context;
-TextView taikh,binhluanbl;
+
+TextView taikh,binhluanbl,time;
     public AdapterBinhluan(LayoutInflater layoutInflater, ArrayList<Binhluan> binhluansArrayList, Context context) {
         this.layoutInflater = layoutInflater;
         this.binhluansArrayList = binhluansArrayList;
@@ -51,11 +55,13 @@ TextView taikh,binhluanbl;
 
         }
 
+        time=convertView.findViewById(R.id.ngaybl);
         taikh=convertView.findViewById(R.id.taikhoanbl);
         binhluanbl=convertView.findViewById(R.id.binhluanbl);
         Binhluan bl = binhluansArrayList.get(position);
         taikh.setText(bl.getTkNguoidan());
         binhluanbl.setText(bl.getBinhluan());
+        time.setText(bl.getDate());
         return convertView;
     }
 

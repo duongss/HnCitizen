@@ -35,10 +35,18 @@
         android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/zz"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Không Có Bình luận"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="250dp">
+        android:layout_height="230dp">
         <ListView
             android:id="@+id/listviewbl"
             android:layout_margin="10dp"
@@ -49,13 +57,12 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
         android:gravity="bottom">
 
         <EditText
             android:id="@+id/textbl"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_weight="4" />
 
         <ImageView

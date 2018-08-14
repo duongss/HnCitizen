@@ -4,10 +4,18 @@ public class Binhluan extends Thongbao {
 int idBl;
 String Binhluan;
 String tkNguoidan;
-
+String date;
     public Binhluan(String binhluan, String tkNguoidan) {
         Binhluan = binhluan;
         this.tkNguoidan = tkNguoidan;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
